@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 const InputBook = () => {
   const [title, setTitle] = useState("");
-
+  const [author, setAuthor] = useState("");
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const body = { title };
-      const response = fetch("http://localhost:5000/books", {
+      const body = { title, author };
+      const response = await fetch("http://localhost:5000/books", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        body: JSON.stringify(body, author),
       });
-      console.log(response);
+      window.location = "/";
     } catch (error) {
       console.error(error.message);
     }
@@ -19,21 +19,31 @@ const InputBook = () => {
   return (
     <>
       <h1 className="text-center mt-5 text-blue-500 text-4xl">Book List</h1>
-      <div className="flex justify-center items-center">
-        <form
-          className="w-1/2 flex justify-center items-center"
-          onSubmit={onSubmitForm}>
+
+      <form className="w-1/2 flex flex-col" onSubmit={onSubmitForm}>
+        <label className="mt-2 flex justify-between">
+          {" "}
+          Title
           <input
             type="text"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-4/5"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
-          <button className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            Add
-          </button>
-        </form>
-      </div>
+        </label>
+        <label className="mt-2 flex justify-between">
+          Author
+          <input
+            type="text"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-4/5"
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+          />
+        </label>
+        <button className="mt-2 ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          Add
+        </button>
+      </form>
     </>
   );
 };

@@ -2,17 +2,17 @@ import React, { useState } from "react";
 const InputBook = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const onSubmitForm = async (e) => {
+  const onSubmitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const body = { title, author };
       const response = await fetch("http://localhost:5000/books", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body, author),
+        body: JSON.stringify(body),
       });
-      window.location = "/";
-    } catch (error) {
+      window.location.href = "/";
+    } catch (error:any) {
       console.error(error.message);
     }
   };
@@ -26,7 +26,7 @@ const InputBook = () => {
           Title
           <input
             type="text"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-4/5"
+            className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-4/5"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -35,7 +35,7 @@ const InputBook = () => {
           Author
           <input
             type="text"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-4/5"
+            className="shadow appearance-none border rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-4/5"
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
           />

@@ -1,11 +1,18 @@
-import React, { useState } from "react";
-
-function EditBook(props) {
+import React, { ErrorInfo, useState } from "react";
+import { ErrorCallback } from "typescript";
+type EditBookProps = {
+  book: {
+    author: string,
+    title: string,
+    book_id: string,
+  }
+}
+function EditBook(props: EditBookProps): JSX.Element {
   const [showModal, setShowModal] = React.useState(false);
   const [title, setTitle] = useState(props.book.title);
   const [author, setAuthor] = useState(props.book.author);
   console.log(props);
-  const editBook = async (e) => {
+  const editBook = async (e: React.MouseEvent) => {
     e.preventDefault();
     try {
       const body = { title, author };
@@ -18,11 +25,11 @@ function EditBook(props) {
         }
       );
       setShowModal(false);
-      window.location = "/";
-    } catch (error) {
+      window.location.href = "/";
+    } catch (error: any) {
       console.log(error.message);
     }
-  };
+  }
 
   return (
     <>

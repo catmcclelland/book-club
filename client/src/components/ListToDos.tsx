@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import EditBook from "./EditBook";
+type Book = {
+  author: string,
+  title: string,
+  book_id: string
+}
 const ListBooks = () => {
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState<Book[]>();
 
   const getBooks = async () => {
     try {
@@ -9,17 +14,17 @@ const ListBooks = () => {
       const jsonData = await response.json();
       setBooks(jsonData);
       console.log(books);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error.message);
     }
   };
-  const deleteBook = async (id) => {
+  const deleteBook = async (id: string) => {
     try {
       const deleteBook = await fetch(`http://localhost:5000/books/${id}`, {
         method: "DELETE",
       });
-      setBooks(books.filter((book) => book.book_id !== id));
-    } catch (error) {
+      setBooks(books?.filter((book) => book.book_id !== id));
+    } catch (error: any) {
       console.log(error.message);
     }
   };
@@ -48,7 +53,7 @@ const ListBooks = () => {
             </tr>
           </thead>
           <tbody>
-            {books.map((book) => {
+            {books?.map((book) => {
               return (
                 <tr
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"

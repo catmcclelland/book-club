@@ -1,7 +1,7 @@
 import express from "express";
 const app = express();
 import cors from 'cors';
-const pool = require("./db");
+import pool from "./db";
 
 //middleware
 app.use(cors());
@@ -20,6 +20,7 @@ res.json(newBook.rows[0]);
 console.log(err);
 }
 })
+
 //get all books
 app.get("/books", async (req, res)=> {
     try{
